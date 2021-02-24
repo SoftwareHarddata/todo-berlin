@@ -1,16 +1,36 @@
 import styled from 'styled-components/macro'
 import Button from './Button'
+import {Link} from "react-router-dom";
 
-export default function Todo({ todo, onDelete, onAdvance }) {
+
+export default function Todo({ todo, onDelete, onAdvance, detailView}) {
   return (
     <Wrapper>
-      <Description>{todo.description}</Description>
-      <Button onClick={() => onDelete(todo)}>Delete</Button>
-      {onAdvance && (
-        <Button primary onClick={() => onAdvance(todo)}>
-          Advance
-        </Button>
-      )}
+      <section>
+          <Description>{todo.description}</Description>
+      </section>
+
+        {!detailView && (
+                <section>
+                    <Button onClick={() => onDelete(todo)}>Delete</Button>
+
+                     <Link to={'/todo/'+todo.id}>
+                        <Button color="primary">Details</Button>
+                    </Link>
+                    {/*
+                    <Button color="primary" component={Link} to={`/todo/${todo.id}`}>
+                        Details
+                    </Button>
+                    */}
+
+
+                    {onAdvance && (
+                        <Button primary onClick={() => onAdvance(todo)}>
+                            Advance
+                        </Button>
+                    )}
+                </section>
+            )}
     </Wrapper>
   )
 }

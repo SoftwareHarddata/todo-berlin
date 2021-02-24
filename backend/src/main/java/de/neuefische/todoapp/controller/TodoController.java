@@ -9,8 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.server.ResponseStatusException;
-
 import java.util.List;
+import java.util.Optional;
+
 
 @RestController
 @RequestMapping("api/todo")
@@ -23,6 +24,11 @@ public class TodoController {
     public TodoController(TodoService todoService, TodoFactory todoFactory) {
         this.todoService = todoService;
         this.todoFactory = todoFactory;
+    }
+
+    @GetMapping("{id}")
+    public Todo getById(@PathVariable String id){
+        return todoService.getById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Item not found"));
     }
 
     @GetMapping

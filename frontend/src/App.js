@@ -5,9 +5,20 @@ import Boards from './components/Boards'
 import PageLayout from './components/PageLayout'
 import { advanceStatus } from './services/advanceStatus'
 import * as todoApi from './services/todoApi'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+import TodoDetails from "./components/TodoDetails";
 
 export default function App() {
   const [todos, setTodos] = useState([])
+
+  function saySomething() {
+    return <h1>i am a Todo</h1>;
+  }
 
   useEffect(() => {
     todoApi.getTodos().then((loadedTodos) => setTodos(loadedTodos))
@@ -42,10 +53,28 @@ export default function App() {
   }
 
   return (
-    <PageLayout>
-      <AppHeader />
-      <Boards todos={todos} onDelete={deleteTodo} onAdvance={advanceTodo} />
-      <AddNewTodo onAdd={addTodo} />
-    </PageLayout>
+      <Router>
+        <Switch>
+          {/* A <Switch> looks through its children <Route>s and
+            renders the first one that matches the current URL. */}
+          <Route exact path="/">
+            <PageLayout>
+              <AppHeader />
+              <Boards todos={todos} onDelete={deleteTodo} onAdvance={advanceTodo} />
+              <AddNewTodo onAdd={addTodo} />
+              <Link to="/todo">Todo</Link>
+            </PageLayout>
+          </Route>
+
+          <Route path="/todo/:id">
+            <TodoDetails/>
+          </Route>
+
+          <Route path="/todo">
+          <TodoDetails/>
+        </Route>
+
+      </Switch>
+      </Router>
   )
 }

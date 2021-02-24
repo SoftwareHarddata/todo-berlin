@@ -5,7 +5,7 @@ export default function Board({ todos, title, onDelete, onAdvance }) {
   return (
     <Wrapper>
       <h2>{title}</h2>
-      <ul>
+      <ul aria-label="fruits">
         {todos.map((todo) => (
           <li key={todo.id}>
             <Todo todo={todo} onDelete={onDelete} onAdvance={onAdvance} />
