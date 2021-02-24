@@ -1,4 +1,4 @@
-name: Deploy github bingo master
+name: Deploy todo-berlin
 
 on:
   push:
@@ -58,8 +58,8 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/download-artifact@v2
         with:
-          name: github-bingo-master.jar
+          name: todo.jar
           path: backend/target
       - run: heroku container:login
-      - run: heroku container:push web -a github-bingo-master
-      - run: heroku container:release web -a github-bingo-master
+      - run: heroku container:push web -a todo
+      - run: heroku container:release web -a todo
