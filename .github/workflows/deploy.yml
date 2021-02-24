@@ -61,5 +61,5 @@ jobs:
           name: todo.jar
           path: backend/target
       - run: heroku container:login
-      - run: heroku container:push web -a todo
-      - run: heroku container:release web -a todo
+      - run: heroku container:push web -a todo-berlin
+      - run: heroku container:release web -a todo-berlin
